@@ -1,19 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+
+import Sidebar from './components/Sidebar';
+import EmoteCollection from './components/EmoteCollection';
+import StreamerCollection from './components/StreamerCollection';
+import World from './components/World';
+
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.leftControlWidth = 350;
+  }
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
+      <main className="App">
+        <header className="App-header">
+          <h2>Emote Clicker</h2>
+        </header>
+        {/* GAME */}
+
+          <Sidebar width={this.leftControlWidth}>
+
+            {/*<EmoteCollection />*/}
+            {/*<StreamerCollection />*/}
+
+          </Sidebar>
+
+
+          <World type="fullsize" />
+
+        {/* END OF GAME */}
         <p className="App-intro">
-          LOL
+          Login with Twitch to save progress
         </p>
-      </div>
+      </main>
     );
   }
 }

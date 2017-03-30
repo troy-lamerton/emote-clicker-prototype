@@ -1,7 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+
+import Player from './components/Player';
+import EnemyGenerator from './components/EnemyGenerator';
+
 import './style.css';
 
-class Player extends Component {
+class World extends Component {
   constructor(props) {
     super(props);
 
@@ -12,11 +16,16 @@ class Player extends Component {
   }
 
   render = () => (
-    <div id="Player" style={{...this.props}} />
+    <div id="World" style={{...this.props}}>
+      <Player width={100} height={100} />
+
+      <EnemyGenerator emote="Kappa" />
+      <EnemyGenerator emote="PogChamp" />
+    </div>
   );
 }
 
-Player.propTypes = {
+World.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   startX: PropTypes.number.isRequired,
@@ -24,4 +33,4 @@ Player.propTypes = {
   picId: PropTypes.oneOf(['newbie', 'AtheneLIVE']),
 };
 
-export default Player;
+export default World;
