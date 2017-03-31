@@ -1,9 +1,9 @@
 import React, {Component, PropTypes} from 'react';
 
-import Player from './components/Player';
-import EnemyGenerator from './components/EnemyGenerator';
+import Player from '../Player';
+import EnemyGenerator from '../EnemyGenerator';
 
-import './style.css';
+import './styles.css';
 
 class World extends Component {
   constructor(props) {
@@ -17,10 +17,12 @@ class World extends Component {
 
   render = () => (
     <div id="World" style={{...this.props}}>
-      <Player width={100} height={100} />
+      <Player width={100} height={100} startY={200} startX={50} />
 
-      <EnemyGenerator emote="Kappa" />
-      <EnemyGenerator emote="PogChamp" />
+      <div className="generators-container">
+        <EnemyGenerator emoteId="Kappa" />
+        <EnemyGenerator emoteId="PogChamp" disabled />
+      </div>
     </div>
   );
 }
@@ -28,8 +30,6 @@ class World extends Component {
 World.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
-  startX: PropTypes.number.isRequired,
-  startY: PropTypes.number.isRequired,
   picId: PropTypes.oneOf(['newbie', 'AtheneLIVE']),
 };
 

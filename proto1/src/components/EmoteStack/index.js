@@ -1,5 +1,9 @@
 import React, {Component, PropTypes} from 'react';
-import './style.css';
+
+import ImageSquare from '../ImageSquare';
+import Counter from '../Counter';
+
+import './styles.css';
 
 class EmoteStack extends Component {
   constructor(props) {
@@ -14,9 +18,11 @@ class EmoteStack extends Component {
 
   render() {
     return (
-      <div id="EmoteStack" style={{...this.props}}>
-        <ImageSquare type="clickable" imageUrl={this.imageUrl} />
-        <Counter count={this.state.emotes.PogChampCount} interval={100} />
+      <div className="emote-stack" style={{...this.props}}>
+        <ImageSquare type="clickable" imageUrl={`/emotes/${this.props.emoteId}`} />
+        <Counter>
+          {this.state.count}
+        </Counter>
       </div>
     );
   }
@@ -25,7 +31,7 @@ class EmoteStack extends Component {
 EmoteStack.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
-  emoteId: PropTypes.string.isRequired,
+  emoteId: PropTypes.oneOf(['Kappa', 'PogChamp']).isRequired
 };
 
 export default EmoteStack;

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 
 import EmoteStack from '../EmoteStack';
 
-import './style.css';
+import './styles.css';
 
 class EmoteCollection extends Component {
   constructor(props) {

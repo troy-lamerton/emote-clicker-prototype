@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import './style.css';
+import './styles.css';
 
 class Player extends Component {
   constructor(props) {

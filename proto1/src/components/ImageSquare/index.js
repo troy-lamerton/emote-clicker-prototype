@@ -1,22 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import cx from 'classnames';
 
-import './style.css';
+import './styles.css';
 
-function ImageSquare() {
+const ImageSquare = (props) => {
   return (
     <a
-      className={cx('image-square', this.props.type)} 
-      style={{...this.props}}
-      style={{backgroundImage: `url('${this.props.imageUrl}')`}}
+      className={cx('image-square', props.type)} 
+      style={{backgroundImage: `url('${props.emoteId}.png')`}}
     />
   );
 }
-
-ImageSquare.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  imageUrl: PropTypes.string.isRequired,
-};
 
 export default ImageSquare;

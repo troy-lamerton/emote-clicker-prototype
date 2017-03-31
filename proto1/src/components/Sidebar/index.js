@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import './style.css';
+import './styles.css';
 
 const Sidebar = (props) => (
   <section id="Sidebar" style={{...props}}>
