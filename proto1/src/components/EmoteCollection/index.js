@@ -9,9 +9,22 @@ class EmoteCollection extends Component {
     super(props);
 
     this.state = {
-      KappaCount: 10,
-      PogChampCount: 0,
+      KappaCount: 0,
+      PogChampCount: 0
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { KappaCount, PogChampCount } = nextProps;
+
+    if (typeof KappaCount === 'number') {
+      console.log('KappaCount number:', KappaCount);
+      this.setState({ KappaCount });
+    }
+    if (typeof PogChampCount === 'number') {
+      console.log('PogChampCount number:', PogChampCount);
+      this.setState({ PogChampCount });
+    }
   }
 
   render() {

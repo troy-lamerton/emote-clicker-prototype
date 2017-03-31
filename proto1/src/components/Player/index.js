@@ -6,14 +6,36 @@ class Player extends Component {
     super(props);
 
     this.state = {
-      picId: 'newbie',
-      picSrc: '',
+      streamerId: props.streamerId || 'newbie',
+      enabled: props.enabled || !props.disabled,
     };
   }
 
-  render = () => (
-    <div id="Player" style={{...this.props}} />
-  );
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.streamerId && this.props.streamerId !== nextProps.streamerId) {
+      this.setState({
+        streamerId: nextProps.streamerId
+      });
+    }
+  }
+
+  get imageSrc() {
+    return `images/streamers/${this.state.streamerId}.png`;
+  }
+
+  get bgImage() {
+    return `url(${this.imageSrc})`
+  }
+
+  render() {
+    const backgroundImage = this.bgImage;
+    return (
+      <div
+        id="Player"
+        style={{backgroundImage, ...this.props}}
+      />
+    );
+  }
 }
 
 Player.propTypes = {
@@ -21,7 +43,7 @@ Player.propTypes = {
   height: PropTypes.number,
   startX: PropTypes.number.isRequired,
   startY: PropTypes.number.isRequired,
-  picId: PropTypes.oneOf(['newbie', 'AtheneLIVE']),
+  streamerId: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,
 };
 
 export default Player;

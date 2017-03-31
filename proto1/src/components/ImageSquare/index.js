@@ -4,12 +4,30 @@ import cx from 'classnames';
 import './styles.css';
 
 const ImageSquare = (props) => {
-  return (
-    <a
-      className={cx('image-square', props.type)} 
-      style={{backgroundImage: `url('${props.emoteId}.png')`}}
-    />
-  );
+  const { imageFolder, imageName, onClick } = props;
+  const imageUrl = `images/${imageFolder}/${imageName}.png`;
+
+  const imageNode = (<img
+      className={cx('image-square')} 
+      src={imageUrl}
+      alt={imageName}
+      title={imageName}
+    />);
+
+  if (onClick) {
+    return (
+      <a href={'#' + imageName} onClick={onClick}>
+        {imageNode}
+      </a>
+    );
+  }
+
+  return imageNode;
+};
+
+ImageSquare.propTypes = {
+  imageFolder: PropTypes.oneOf(['streamers', 'emotes']).isRequired,
+  imageName: PropTypes.string.isRequired,
 }
 
 export default ImageSquare;

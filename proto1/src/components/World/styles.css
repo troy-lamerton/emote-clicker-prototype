@@ -1,8 +1,15 @@
+#World {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .generators-container {
   width: 120px;
-  height: ;
+  height: 100%;
 
+  background: #bb0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
 }

@@ -1,18 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 
+import ImageSquare from '../ImageSquare';
+
 import './styles.css';
 
 class EnemyGenerator extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      emoteId: props.emoteId || 'Kappa',
       nextSpawnAt: null,
       interval: props.interval,
       enabled: props.enabled || !props.disabled
-    }
+    };
+  }
 
-    this.emoteSrc = `images/${props.emoteId}.png`;
+  componentWillReceiveProps(nextProps) {
+    if (this.readyToSpawn) {
+      this.spawnEnemy();
+    }
   }
 
   componentDidMount() {
@@ -21,7 +27,12 @@ class EnemyGenerator extends Component {
     });
   }
 
-  spawnEnemy(emoteId) {
+  get readyToSpawn() {
+    return this.state.nextSpawnAt >= Date.now();
+  }
+
+  spawnEnemy = (emoteId) => {
+    this.props.spawnEnemy();
     this.setState((state) => ({
       nextSpawnAt: Date.now() + state.interval
     }));
@@ -30,8 +41,8 @@ class EnemyGenerator extends Component {
   render() {
     return (
       <section className="emote-generator" style={{...this.props}}>
-        <img src={this.emoteSrc} alt={this.props.emoteId} title={this.props.emoteId} />
-        <span>{(this.state.enabled) ? 'GO' : 'not yet'}</span>
+        <ImageSquare imageFolder="emotes" imageName={this.props.emoteId} />
+        <span>{(this.state.enabled) ? '+' : '...'}</span>
       </section>
     );
   }

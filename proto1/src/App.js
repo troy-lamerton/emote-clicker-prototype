@@ -11,7 +11,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.leftControlWidth = 350;
+    this.state = {
+      score: 9001
+    };
   }
   render() {
     return (
@@ -21,10 +23,10 @@ class App extends Component {
         </header>
         {/* GAME */}
 
-          <Sidebar width={this.leftControlWidth}>
+          <Sidebar width={350} id="leftControls">
 
-            {/*<EmoteCollection />*/}
-            {/*<StreamerCollection />*/}
+            <EmoteCollection kappaCount={10} pogChampCount={2} />
+            <StreamerCollection />
 
           </Sidebar>
 
@@ -33,7 +35,7 @@ class App extends Component {
 
         {/* END OF GAME */}
         <p className="App-intro">
-          Login with Twitch to save progress
+          ---footer---
         </p>
       </main>
     );
