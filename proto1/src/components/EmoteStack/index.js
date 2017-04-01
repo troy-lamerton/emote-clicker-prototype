@@ -12,8 +12,6 @@ class EmoteStack extends Component {
     this.state = {
       count: this.props.count || 0,
     };
-
-    this.imageUrl = `/emotes/${this.state.emoteId}`;
   }
 
   render() {

@@ -9,15 +9,14 @@ class EnemyGenerator extends Component {
     super(props);
 
     this.state = {
-      nextSpawnAt: null,
-      interval: props.interval,
+      
       enabled: props.enabled || !props.disabled
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+/*  componentWillReceiveProps(nextProps) {
     if (this.readyToSpawn) {
-      this.spawnEnemy();
+      // this.spawnEnemy();
     }
   }
 
@@ -25,7 +24,7 @@ class EnemyGenerator extends Component {
     this.setState({
       nextSpawnAt: Date.now()
     });
-  }
+  }*/
 
   get readyToSpawn() {
     return this.state.nextSpawnAt >= Date.now();

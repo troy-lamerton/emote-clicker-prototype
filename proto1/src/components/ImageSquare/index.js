@@ -28,6 +28,7 @@ const ImageSquare = (props) => {
 ImageSquare.propTypes = {
   imageFolder: PropTypes.oneOf(['streamers', 'emotes']).isRequired,
   imageName: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 }
 
 export default ImageSquare;

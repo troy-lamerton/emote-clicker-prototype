@@ -14,8 +14,9 @@
   color: white;
 }
 
-.App-intro {
+.game-footer {
   font-size: large;
+  background: #fff;
 }
 
 @keyframes App-logo-spin {

@@ -1,30 +1,26 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 
 import ImageSquare from '../ImageSquare';
 
 import './styles.css';
 
-function Enemy(props) {
-  const enemyStyle = {
-    display: (props.enabled) ? 'block' : 'none'
-  };
+const Enemy = (props) => {
 
   return (
-    <div className="enemy" style={enemyStyle}>
+    <div className="enemy">
       <ImageSquare
         imageFolder="emotes"
-        imageName={sprite.emoteId}
-        width={50}
-        height={50}
-        x={sprite.x}
-        y={200}
+        imageName={props.emoteId}
       />
     </div>
   );
 }
 
 Enemy.propTypes = {
-  sprites: PropTypes.array.isRequired
+  emoteId: PropTypes.string.isRequired,
+  enabled: PropTypes.bool,
+  x: PropTypes.number,
+  y: PropTypes.number,
 };
 
 export default Enemy;

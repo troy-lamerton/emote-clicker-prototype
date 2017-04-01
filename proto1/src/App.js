@@ -31,12 +31,12 @@ class App extends Component {
           </Sidebar>
 
 
-          <World type="fullsize" />
+          <World type="fullsize" interval={900} />
 
         {/* END OF GAME */}
-        <p className="App-intro">
+        <footer className="game-footer">
           ---footer---
-        </p>
+        </footer>
       </main>
     );
   }

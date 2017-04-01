@@ -1,5 +1,5 @@
-.image-squaare {
-  width: 30px !important;
-  height: 30px !important;
+.image-square {
+  margin-left: auto;
+  margin-right: auto;
   background: white;
 }

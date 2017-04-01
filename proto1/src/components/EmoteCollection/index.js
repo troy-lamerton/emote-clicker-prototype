@@ -17,7 +17,7 @@ class EmoteCollection extends Component {
   componentWillReceiveProps(nextProps) {
     const { KappaCount, PogChampCount } = nextProps;
 
-    if (typeof KappaCount === 'number') {
+    if (typeof KappaCount === 'number' ) {
       console.log('KappaCount number:', KappaCount);
       this.setState({ KappaCount });
     }

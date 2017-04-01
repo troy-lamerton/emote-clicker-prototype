@@ -1,39 +1,68 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 
 import Enemy from '../Enemy';
-import EnemyContainer from '../Enemy';
+import EnemyContainer from '../EnemyContainer';
 
 import './styles.css';
 
-class Enemies extends Component {
-  render() {
-    return (
-      <div id="Enemies">
-        {this.props.sprites.map((sprite) => {
-          let enemyContent = '-=-';
+const Enemies = ({sprites}) => (
+  <div id="Enemies">
+    {sprites.map((sprite, index) => {
+      let enemyContent = '-=-';
 
-          if (sprite.alive) {
-            enemyContent = (<Enemy
-              emoteId={sprite.emoteId}
-              width={50}
-              height={50}
-              x={sprite.x}
-              y={200}
-            />);
-          } else {
-            enemyContent = 'X_X';
-          }
-          return (<EnemyContainer>
-              {enemyContent}
-            </EnemyContainer>);
-        })}
-      </div>
-    );
-  }
-}
+      if (sprite.alive) {
+        enemyContent = (<Enemy
+          emoteId={sprite.emoteId}
+          width={50}
+          height={50}
+          enabled={sprite.alive}
+        />);
+      } else {
+        enemyContent = 'X_X';
+      }
+
+      const wrappedEnemy = (<EnemyContainer
+        key={index}
+        x={sprite.x + 100}
+        y={200}>
+          {enemyContent}
+        </EnemyContainer>);
+
+      return wrappedEnemy;
+    })}
+  </div>
+);
 
 Enemies.propTypes = {
-  sprites: PropTypes.array.isRequired
+  sprites: PropTypes.arrayOf((sprites, key, componentName) => {
+    let errorObj;
+    sprites.forEach((spriteObj, index) => {
+      if (spriteObj && (typeof spriteObj === 'object')) {
+        if (spriteObj.hasOwnProperty('emoteId')) {
+          if (spriteObj.hasOwnProperty('alive')) {
+            errorObj = false;
+          } else {
+            errorObj = null;
+          }
+        } else {
+          errorObj = new Error(
+            `Invalid prop "sprites" in Enemies -- failed at "emoteId": ${spriteObj} ${key}`
+          );
+        }
+      } else {
+        errorObj = new Error(
+          `Invalid prop "sprites" in Enemies -- failed at "object": ${spriteObj} ${key}`
+        );
+      }
+    });
+    if (errorObj) return errorObj;
+    else if (errorObj === false) return;
+    else {
+      return new Error(
+        'Invalid prop "sprites", in Enemies: "hasOwnProperty" Validation failed.'
+      );
+    }
+  })
 };
 
 export default Enemies;
