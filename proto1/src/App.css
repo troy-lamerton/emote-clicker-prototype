@@ -1,11 +1,16 @@
 .App {
   text-align: center;
+  color: lightblue;
+  font: bold 16px sans-serif;
+}
+#Sidebar-left {
+  
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.game {
+  display: flex;
 }
+
 
 .App-header {
   background-color: #222;
@@ -17,11 +22,6 @@
 .game-footer {
   font-size: large;
   background: #fff;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 #leftControls {

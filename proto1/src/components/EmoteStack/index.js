@@ -5,26 +5,17 @@ import Counter from '../Counter';
 
 import './styles.css';
 
-class EmoteStack extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      count: this.props.count || 0,
-    };
-  }
-
-  render() {
-    return (
-      <div className="emote-stack" style={{...this.props}}>
-        <ImageSquare type="clickable" imageUrl={`/emotes/${this.props.emoteId}`} />
-        <Counter>
-          {this.state.count}
-        </Counter>
-      </div>
-    );
-  }
-}
+const EmoteStack = (props) => (
+  <div className="emote-stack" style={{...props}}>
+    <ImageSquare
+      type="clickable"
+      imageFolder="emotes"
+      imageName={props.emoteId} />
+    <Counter>
+      {props.count}
+    </Counter>
+  </div>
+);
 
 EmoteStack.propTypes = {
   width: PropTypes.number,

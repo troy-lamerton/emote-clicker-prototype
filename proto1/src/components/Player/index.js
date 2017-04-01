@@ -28,22 +28,31 @@ class Player extends Component {
   }
 
   render() {
+    const { x, y, radius, streamerId } = this.props;
+    const diameter = radius * 2;
     const backgroundImage = this.bgImage;
+    const left = x;
+    const top = y;
+    const playerStyle = {
+      backgroundImage,
+      left,
+      top,
+      width: diameter,
+      height: diameter
+    }
     return (
       <div
         id="Player"
-        style={{backgroundImage, ...this.props}}
+        style={playerStyle}
       />
     );
   }
 }
 
 Player.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   radius: PropTypes.number.isRequired,
-  startX: PropTypes.number.isRequired,
-  startY: PropTypes.number.isRequired,
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
   streamerId: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,
 };
 

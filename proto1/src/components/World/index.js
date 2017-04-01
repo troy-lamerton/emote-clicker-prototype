@@ -21,12 +21,12 @@ class World extends Component {
     };
 
     this.gameTick = this.gameTick.bind(this);
-    this.gameTickerRef = null;
   }
 
   get initialPlayer() {
     const player = {
       x: 0,
+      y: 0,
       radius: 50
     };
     return player;
@@ -37,11 +37,13 @@ class World extends Component {
   
       // {alive: true, x: 250, radius: 15, emoteId: 'Kappa'},
       // {alive: true, x: 500, radius: 15, emoteId: 'PogChamp'},
+    const kappaPrevalence = 0.7;
+    const randomEmoteId = (Math.random() <= kappaPrevalence) ? 'Kappa' : 'PogChamp';
     const enemySkeleton = {
       alive: true,
       x: 80,
       radius: 15,
-      emoteId: 'Kappa'
+      emoteId: randomEmoteId,
     };
     let enemies = new Array(NUM_ENEMIES);
     enemies = enemies.fill(enemySkeleton);
@@ -58,35 +60,35 @@ class World extends Component {
         }
       })
     ));
-    console.log(enemies)
 
     return enemies.map((sprite) => (
       Object.assign({}, sprite)
     ));
   }
 
-  killEnemy(index, callback = () => {}) {
+  killEnemy(index) {
     this.setState((state) => {
       const enemies = state.enemies.map(sprite => Object.assign({}, sprite));
       const killedEnemy = enemies[index];
       killedEnemy.alive = false;
       enemies[index] = killedEnemy;
+
+      this.props.emoteCollected(killedEnemy.emoteId);
       return { enemies };
-    }, callback);
+    });
   }
 
   difference = (a, b) => (Math.abs(a - b));
 
-  overlappingPlayer(enemy) {
+  overlappingPlayer(sprite) {
     // difference between edges
-    // assuming x is the center of the object
-    // assuming enemy is travelling negatively along x
-    // CHECKS: the left edge of the enemy is on top of
+    // assuming sprite.x is center of sprite
+    // assuming sprite is travelling negatively along x
+    // CHECKS: the left edge of the sprite is on top of
     // right edge of the player
-    const enemyX = enemy.x - enemy.radius;
+    const spriteX = sprite.x - sprite.radius;
     const playerX = this.state.player.x;
-    const edgeDifference = this.difference(enemyX, playerX)
-    // console.log(edgeDifference)//, playerX)
+    const edgeDifference = this.difference(spriteX, playerX)
     return edgeDifference <= 1;
   }
 
@@ -94,7 +96,6 @@ class World extends Component {
     this.gameTickerRef = window.setInterval(this.gameTick, this.state.interval);
     // reset enemies
     window.setInterval(() => {
-      console.log(this.initialEnemies);
       this.setState(Object.assign({}, {enemies: this.initialEnemies}));
     }, 1300);
   }
@@ -105,25 +106,14 @@ class World extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.gameTickDue(nextState)) {
-      console.log('.');
       return true;
     }
     return false;
   }
 
   /* GAME LOOP */
-  componentDidUpdate(prevProps, prevState) {
-    /*if (this.gameTickDue(prevState)) {
       // update game state etc
       // check overlapping player
-      this.state.enemies.forEach((sprite, index) => {
-        if (this.overlappingPlayer(sprite)) {
-          // console.info('ded', index);
-          // this.killEnemy(index, this.setNextGameTick);
-        }
-      })
-    }*/
-  }
 
   gameTickDue(state) {
     // gone past the timestamp game should tick at
@@ -147,7 +137,7 @@ class World extends Component {
           enemies[index] = newEnemy;
           this.setState({ enemies });
         } else {
-          console.error('index out of range', 'check spawnEnemy()');
+          console.error('index out of range', 'check World spawnEnemy()');
         }
       })
     }
@@ -170,22 +160,21 @@ class World extends Component {
 
   render() {
     return (
-      <div id="World" style={{...this.props}}>
+      <div id="World">
         <Player
           streamerId="newbie"
           radius={50}
-          width={100}
-          height={100}
-          startY={200}
-          startX={50} />
+          width={70}
+          height={70}
+          {...this.state.player} />
 
         <Enemies
           sprites={this.state.enemies} />
 
-        <div className="generators-container">
-          {/*<EnemyGenerator emoteId="Kappa" spawnEnemy={this.spawnEnemy('Kappa')} />*/}
-          {/*<EnemyGenerator emoteId="PogChamp" spawnEnemy={this.spawnEnemy('PogChamp')} disabled />*/}
-        </div>
+        {/*<div className="generators-container">
+          <EnemyGenerator emoteId="Kappa" spawnEnemy={this.spawnEnemy('Kappa')} />
+          <EnemyGenerator emoteId="PogChamp" spawnEnemy={this.spawnEnemy('PogChamp')} disabled />
+        </div>*/}
       </div>
     );
   }

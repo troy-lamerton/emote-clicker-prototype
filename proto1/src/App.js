@@ -12,25 +12,37 @@ class App extends Component {
     super(props);
 
     this.state = {
-      score: 9001
+      Kappa: 0,
+      PogChamp: 0
     };
+
+    this.emoteCollected = this.emoteCollected.bind(this);
   }
 
   componentWillMount() {
     this.FPS = 60;
   }
 
+  emoteCollected(emoteId) {
+
+    this.setState((prevState) => ({
+      [emoteId]: prevState[emoteId] + 1
+    }));
+  }
+
   render() {
     return (
       <main className="App">
-        <header className="App-header">
-          <h2>Emote Clicker</h2>
-        </header>
         {/* GAME */}
+        <main className="game">
+          <Sidebar
+            width={3000}
+            id="Sidebar-left">
 
-          <Sidebar width={350} id="leftControls">
-
-            <EmoteCollection kappaCount={10} pogChampCount={2} />
+            <EmoteCollection
+              width={100}
+              height={200}
+              {...this.state} />
             <StreamerCollection />
 
           </Sidebar>
@@ -39,8 +51,10 @@ class App extends Component {
           <World
             width={644}
             height={125}
-            interval={1000 / this.FPS} />
+            interval={1000 / this.FPS}
+            emoteCollected={this.emoteCollected} />
 
+        </main>
         {/* END OF GAME */}
         <footer className="game-footer">
           ---footer---

@@ -1,10 +1,14 @@
 #Player {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 50px;
+  height: 50px;
+  border: 8px solid #ac0f00;
+
   background: orange;
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center; 
-
-  border: 8px solid #ac0f00;
-  width: 50px;
-  height: 50px;
 }

@@ -2,14 +2,12 @@ import React, {PropTypes} from 'react';
 import './styles.css';
 
 const Sidebar = (props) => (
-  <section id="Sidebar" style={{...props}}>
-    {/*{{props.children}}*/}
-  </section>
+  <aside>
+    {props.children}
+  </aside>
 );
 
 Sidebar.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   children: PropTypes.node.isRequired,
 };
 

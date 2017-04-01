@@ -23,8 +23,9 @@ const Enemies = ({sprites}) => (
         <EnemyContainer
           key={index}
           enabled={sprite.alive}
+          alive={sprite.alive}
           x={sprite.x + 100}
-          y={200}>
+          y={125 - sprite.radius * 2}>
             {enemyContent}
         </EnemyContainer>
       );
