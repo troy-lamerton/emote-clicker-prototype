@@ -9,13 +9,11 @@ const Enemies = ({sprites}) => (
   <div id="Enemies">
     {sprites.map((sprite, index) => {
       let enemyContent = '-=-';
-
       if (sprite.alive) {
         enemyContent = (<Enemy
           emoteId={sprite.emoteId}
           width={50}
           height={50}
-          enabled={sprite.alive}
         />);
       } else {
         enemyContent = 'X_X';
@@ -23,6 +21,7 @@ const Enemies = ({sprites}) => (
 
       const wrappedEnemy = (<EnemyContainer
         key={index}
+        enabled={sprite.alive}
         x={sprite.x + 100}
         y={200}>
           {enemyContent}
@@ -39,10 +38,10 @@ Enemies.propTypes = {
     sprites.forEach((spriteObj, index) => {
       if (spriteObj && (typeof spriteObj === 'object')) {
         if (spriteObj.hasOwnProperty('emoteId')) {
-          if (spriteObj.hasOwnProperty('alive')) {
+          if (spriteObj.hasOwnProperty('alive') && spriteObj.hasOwnProperty('kill')) {
             errorObj = false;
           } else {
-            errorObj = null;
+            errorObj = new Error('alive, kill properties not found');
           }
         } else {
           errorObj = new Error(
@@ -59,7 +58,7 @@ Enemies.propTypes = {
     else if (errorObj === false) return;
     else {
       return new Error(
-        'Invalid prop "sprites", in Enemies: "hasOwnProperty" Validation failed.'
+        '"sprites" Invalid prop, in component "Enemies": "hasOwnProperty" failed.'
       );
     }
   })

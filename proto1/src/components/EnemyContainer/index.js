@@ -5,11 +5,11 @@ import './styles.css';
 const EnemyContainer = (props) => {
   const { x, y, children } = props;
   const containerStyle = {
-    display: (true || props.enabled) ? 'block' : 'none',
+    display: (props.enabled) ? 'block' : 'none',
     left: x,
     top: y,
   };
-
+  // setTimeout(() => props.kill(0), 300);
   return (
     <div className="enemy-container" style={containerStyle}>
       {children}

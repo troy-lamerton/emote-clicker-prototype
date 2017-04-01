@@ -41,6 +41,7 @@ class Player extends Component {
 Player.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
+  radius: PropTypes.number.isRequired,
   startX: PropTypes.number.isRequired,
   startY: PropTypes.number.isRequired,
   streamerId: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,

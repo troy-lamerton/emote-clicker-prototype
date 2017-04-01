@@ -10,18 +10,110 @@ class World extends Component {
   constructor(props) {
     super(props);
 
+    const player = {
+      x: 0,
+      radius: 50
+    };
+
+    const NUM_ENEMIES = 3;
+  
+    const spriteProperties = [
+      {alive: true, x: 80, radius: 15, emoteId: 'Kappa'},
+      {alive: true, x: 250, radius: 15, emoteId: 'Kappa'},
+      {alive: true, x: 500, radius: 15, emoteId: 'PogChamp'},
+    ];
+
+
+
+    let enemies = new Array(NUM_ENEMIES);
+    enemies = enemies.map((sprite, index) => {
+      // properties
+      enemySkeleton.
+      return {
+        [property]
+      };
+    });
+
+    const initEnemies = enemies.map((sprite) => (
+      Object.assign({}, sprite)
+    ));
+
+    this.initialState = {
+      player: Object.assign({}, player),
+      enemies: initEnemies
+    };
+
     this.state = {
       nextTickAt: null,
       interval: props.interval || 999,
       picId: 'newbie',
       picSrc: '',
-      enemies: [
-        {alive: false, x: 100, emoteId: 'Kappa'},
-        {alive: true, x: 250, emoteId: 'Kappa'},
-        {alive: true, x: 500, emoteId: 'PogChamp'}
-      ]
+      player,
+      enemies//: enemySprites
     };
+
     this.gameTick = this.gameTick.bind(this);
+    this.gameTickerRef = null;
+  }
+
+  killEnemy(index, callback = () => {}) {
+    this.setState((state) => {
+      const enemies = state.enemies.map(sprite => Object.assign({}, sprite));
+      const killedEnemy = enemies[index];
+      killedEnemy.alive = false;
+      enemies[index] = killedEnemy;
+      return { enemies };
+    }, callback);
+  }
+
+  difference = (a, b) => (Math.abs(a - b));
+
+  overlappingPlayer(enemy) {
+    // difference between edges
+    // assuming x is the center of the object
+    // assuming enemy is travelling negatively along x
+    // CHECKS: the left edge of the enemy is on top of
+    // right edge of the player
+    const enemyX = enemy.x - enemy.radius;
+    const playerX = this.state.player.x;
+    const edgeDifference = this.difference(enemyX, playerX)
+    // console.log(edgeDifference)//, playerX)
+    return edgeDifference <= 1;
+  }
+
+  componentDidMount() {
+    this.gameTickerRef = window.setInterval(this.gameTick, this.state.interval);
+    // reset enemies
+    window.setInterval(() => {
+      console.log(this.initialState)
+      this.setState(Object.assign({}, this.initialState))
+    }, 1300);
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.gameTickerRef);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.gameTickDue(nextState)) {
+      console.log('.');
+      return true;
+    }
+    return false;
+  }
+
+  /* GAME LOOP */
+  componentDidUpdate(prevProps, prevState) {
+    /*if (this.gameTickDue(prevState)) {
+      // update game state etc
+      // check overlapping player
+      this.state.enemies.forEach((sprite, index) => {
+        if (this.overlappingPlayer(sprite)) {
+          // console.info('ded', index);
+          // this.killEnemy(index, this.setNextGameTick);
+        }
+      })
+    }*/
   }
 
   gameTickDue(state) {
@@ -31,7 +123,6 @@ class World extends Component {
 
   setNextGameTick = () => {
     const now = Date.now();
-    console.info('next tick, now:', now)
     this.setState((state) => ({
       nextTickAt: now + state.interval
     }))
@@ -54,20 +145,18 @@ class World extends Component {
   }
 
   gameTick() {
-    this.forceUpdate();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.gameTickDue(nextState)) {
-      return true;
-    }
-    return false;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.gameTickDue(prevState)) {
-      this.setNextGameTick();
-    }
+    this.setState((state) => {
+      const enemies = state.enemies.slice();
+      let enemiesUpdated = enemies.map((sprite, index) => {
+        if (this.overlappingPlayer(sprite)) {
+          this.killEnemy(index);
+        }
+        return Object.assign(sprite, {
+          x: sprite.x - 1
+        })
+      });
+      return enemiesUpdated
+    });
   }
 
   render() {
@@ -75,6 +164,7 @@ class World extends Component {
       <div id="World" style={{...this.props}}>
         <Player
           streamerId="newbie"
+          radius={50}
           width={100}
           height={100}
           startY={200}

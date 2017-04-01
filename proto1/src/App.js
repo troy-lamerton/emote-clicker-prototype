@@ -15,6 +15,11 @@ class App extends Component {
       score: 9001
     };
   }
+
+  componentWillMount() {
+    this.FPS = 60;
+  }
+
   render() {
     return (
       <main className="App">
@@ -31,7 +36,10 @@ class App extends Component {
           </Sidebar>
 
 
-          <World type="fullsize" interval={900} />
+          <World
+            width={644}
+            height={125}
+            interval={1000 / this.FPS} />
 
         {/* END OF GAME */}
         <footer className="game-footer">
