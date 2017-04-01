@@ -19,13 +19,15 @@ const Enemies = ({sprites}) => (
         enemyContent = 'X_X';
       }
 
-      const wrappedEnemy = (<EnemyContainer
-        key={index}
-        enabled={sprite.alive}
-        x={sprite.x + 100}
-        y={200}>
-          {enemyContent}
-        </EnemyContainer>);
+      const wrappedEnemy = (
+        <EnemyContainer
+          key={index}
+          enabled={sprite.alive}
+          x={sprite.x + 100}
+          y={200}>
+            {enemyContent}
+        </EnemyContainer>
+      );
 
       return wrappedEnemy;
     })}
@@ -38,7 +40,7 @@ Enemies.propTypes = {
     sprites.forEach((spriteObj, index) => {
       if (spriteObj && (typeof spriteObj === 'object')) {
         if (spriteObj.hasOwnProperty('emoteId')) {
-          if (spriteObj.hasOwnProperty('alive') && spriteObj.hasOwnProperty('kill')) {
+          if (spriteObj.hasOwnProperty('alive')) {
             errorObj = false;
           } else {
             errorObj = new Error('alive, kill properties not found');

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {mapValues} from 'lodash';
 
 import Enemies from '../Enemies';
 import Player from '../Player';
@@ -10,50 +11,58 @@ class World extends Component {
   constructor(props) {
     super(props);
 
-    const player = {
-      x: 0,
-      radius: 50
-    };
-
-    const NUM_ENEMIES = 3;
-  
-    const spriteProperties = [
-      {alive: true, x: 80, radius: 15, emoteId: 'Kappa'},
-      {alive: true, x: 250, radius: 15, emoteId: 'Kappa'},
-      {alive: true, x: 500, radius: 15, emoteId: 'PogChamp'},
-    ];
-
-
-
-    let enemies = new Array(NUM_ENEMIES);
-    enemies = enemies.map((sprite, index) => {
-      // properties
-      enemySkeleton.
-      return {
-        [property]
-      };
-    });
-
-    const initEnemies = enemies.map((sprite) => (
-      Object.assign({}, sprite)
-    ));
-
-    this.initialState = {
-      player: Object.assign({}, player),
-      enemies: initEnemies
-    };
-
     this.state = {
       nextTickAt: null,
       interval: props.interval || 999,
       picId: 'newbie',
       picSrc: '',
-      player,
-      enemies//: enemySprites
+      player: this.initialPlayer,
+      enemies: this.initialEnemies,//: enemySprites
     };
 
     this.gameTick = this.gameTick.bind(this);
     this.gameTickerRef = null;
+  }
+
+  get initialPlayer() {
+    const player = {
+      x: 0,
+      radius: 50
+    };
+    return player;
+  }
+
+  get initialEnemies() {
+    const NUM_ENEMIES = 3;
+  
+      // {alive: true, x: 250, radius: 15, emoteId: 'Kappa'},
+      // {alive: true, x: 500, radius: 15, emoteId: 'PogChamp'},
+    const enemySkeleton = {
+      alive: true,
+      x: 80,
+      radius: 15,
+      emoteId: 'Kappa'
+    };
+    let enemies = new Array(NUM_ENEMIES);
+    enemies = enemies.fill(enemySkeleton);
+
+    enemies = enemies.map((skeleton, index) => (
+      mapValues(skeleton, (value, key) => {
+        switch (key) {
+
+          case 'x':
+            return value + value * index;
+
+          default:
+            return value;
+        }
+      })
+    ));
+    console.log(enemies)
+
+    return enemies.map((sprite) => (
+      Object.assign({}, sprite)
+    ));
   }
 
   killEnemy(index, callback = () => {}) {
@@ -85,8 +94,8 @@ class World extends Component {
     this.gameTickerRef = window.setInterval(this.gameTick, this.state.interval);
     // reset enemies
     window.setInterval(() => {
-      console.log(this.initialState)
-      this.setState(Object.assign({}, this.initialState))
+      console.log(this.initialEnemies);
+      this.setState(Object.assign({}, {enemies: this.initialEnemies}));
     }, 1300);
   }
 
