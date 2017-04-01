@@ -19,3 +19,30 @@
   flex-direction: row;
   justify-content: space-around;
 }
+
+.big-emote {
+  z-index: 99;
+  opacity: 0.8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+
+  /*animation-iteration-count: 1;*/
+  animation: big-emote-spin infinite 2s linear;
+}
+
+@keyframes big-emote-spin {
+  from {
+    transform: rotate(360deg);
+    left: 0;
+  }
+  to {
+    opacity: 0;
+    left: 300;
+    transform: rotate(0deg);
+  }
+}

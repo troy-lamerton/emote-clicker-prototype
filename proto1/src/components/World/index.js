@@ -3,6 +3,7 @@ import {mapValues} from 'lodash';
 
 import Enemies from '../Enemies';
 import Player from '../Player';
+import ImageSquare from '../ImageSquare';
 // import EnemyGenerator from '../EnemyGenerator';
 
 import './styles.css';
@@ -14,8 +15,6 @@ class World extends Component {
     this.state = {
       nextTickAt: null,
       interval: props.interval || 999,
-      picId: 'newbie',
-      picSrc: '',
       player: this.initialPlayer,
       enemies: this.initialEnemies,//: enemySprites
     };
@@ -159,18 +158,23 @@ class World extends Component {
   }
 
   render() {
+    const { activeStreamer } = this.props;
     return (
       <div id="World">
         <Player
-          streamerId="newbie"
-          radius={50}
-          width={70}
-          height={70}
+          streamerId={activeStreamer}
           {...this.state.player} />
 
         <Enemies
           sprites={this.state.enemies} />
 
+        {(this.state.Kappa % 2 === 0) && (
+          <div className="big-emote">
+            <ImageSquare
+              imageFolder="effects"
+              imageName="FeelsGoodMan" />
+          </div>
+        )}
         {/*<div className="generators-container">
           <EnemyGenerator emoteId="Kappa" spawnEnemy={this.spawnEnemy('Kappa')} />
           <EnemyGenerator emoteId="PogChamp" spawnEnemy={this.spawnEnemy('PogChamp')} disabled />
@@ -181,9 +185,9 @@ class World extends Component {
 }
 
 World.propTypes = {
+  activeStreamer: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
-  picId: PropTypes.oneOf(['newbie', 'AtheneLIVE']),
 };
 
 export default World;

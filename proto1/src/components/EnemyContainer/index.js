@@ -4,16 +4,15 @@ import cx from 'classnames';
 import './styles.css';
 
 const EnemyContainer = (props) => {
-  const { x, y, alive, children } = props;
+  const { x, alive, enabled, children } = props;
   const containerStyle = {
-    display: (props.enabled) ? 'block' : 'none',
-    opacity: (props.alive) ? 1 : 0.4,
+    display: (enabled) ? 'block' : 'block',
+    opacity: (alive) ? 1 : 0.7,
     left: x,
-    top: y,
   };
   // setTimeout(() => props.kill(0), 300);
   return (
-    <div className={cx('enemy-container', {spinning: !alive})} style={containerStyle}>
+    <div className={cx('enemy-container', {spinning: !alive || !enabled})} style={containerStyle}>
       {children}
     </div>
   );

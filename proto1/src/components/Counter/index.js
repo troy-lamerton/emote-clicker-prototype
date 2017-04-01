@@ -4,9 +4,9 @@ import './styles.css';
 
 const Counter = (props) => {
   return (
-    <section className="counter" style={{...props}}>
-      <span>{props.children}</span>
-    </section>
+    <div className="counter" style={{...props}}>
+      {props.children}
+    </div>
   );
 }
 

@@ -4,25 +4,33 @@ import cx from 'classnames';
 import './styles.css';
 
 const ImageSquare = (props) => {
-  const { imageFolder, imageName, onClick } = props;
+  const { imageFolder, imageName, onClick, size } = props;
   const imageUrl = `images/${imageFolder}/${imageName}.png`;
 
-  const imageNode = (<img
-      className={cx('image-square')} 
-      src={imageUrl}
-      alt={imageName}
-      title={imageName}
-    />);
+  const createImageNode = () => {
+    return (
+      <div className={cx('image-container', imageFolder, {
+        'image-container--clickable': onClick,
+      })}>
+        <img
+          className={cx('image')}
+          src={imageUrl}
+          alt={imageName}
+          title={imageName}
+        />
+      </div>
+    );
+  }
 
   if (onClick) {
     return (
       <a href={'#' + imageName} onClick={onClick}>
-        {imageNode}
+        {createImageNode()}
       </a>
     );
   }
 
-  return imageNode;
+  return createImageNode();
 };
 
 ImageSquare.propTypes = {

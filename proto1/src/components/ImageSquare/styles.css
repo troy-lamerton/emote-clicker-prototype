@@ -1,4 +1,35 @@
-.image-square {
+.image-container--clickable {
+  cursor: pointer;
+
+}
+.image-container--clickable:hover {
+  background: lightgrey;
+}
+a:active, a:hover, a:focus {
+  outline: none;
+}
+.emotes {
+  min-width: 30px;
+  max-width: 30px;
+  min-height: 30px;
+  max-height: 30px;
+}
+.streamers {
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 30px;
+  max-height: 30px;
+}
+.effects {
+  max-width: 300px;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.image {
+  max-height: 100%;
+  max-width: 100%;
+
   margin-left: auto;
   margin-right: auto;
   background: white;

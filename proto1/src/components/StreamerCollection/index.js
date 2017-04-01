@@ -1,53 +1,36 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
+import cx from 'classnames';
+import {map} from 'lodash';
+
+import ImageSquare from '../ImageSquare';
 
 import './styles.css';
 
-class StreamerCollection extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      streamers: [
-        {
-          name: 'zero'
-        },
-        {
-          name: 'one'
-        },
-        {
-          name: 'two'
-        }
-      ]
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { KappaCount, PogChampCount } = nextProps;
-
-    if (typeof KappaCount === 'number') {
-      console.log('KappaCount number:', KappaCount);
-      this.setState({ KappaCount });
-    }
-    if (typeof PogChampCount === 'number') {
-      console.log('PogChampCount number:', PogChampCount);
-      this.setState({ PogChampCount });
-    }
-  }
-
-  render() {
-    return (
-      <section id="StreamerCollection" style={{...this.props}}>
-        {this.state.streamers.map((streamer, index) => (
-          <span key={index}>{streamer.name}</span>
-        ))}
-      </section>
-    );
-  }
-}
+const StreamerCollection = (props) => {
+  const { streamers, activeStreamer, onSelectStreamer } = props;
+  return (
+    <section id="StreamerCollection">
+      {map(streamers, (streamer, id) => (
+        <div
+          key={id}
+          className={cx('streamer', {active: id === activeStreamer})}>
+          <ImageSquare
+            onClick={() => onSelectStreamer(id)}
+            imageFolder="streamers"
+            imageName={id} />
+          {streamer.name.slice(0, 5)}.
+        </div>
+      ))}
+    </section>
+  );
+};
 
 StreamerCollection.propTypes = {
+  streamers: PropTypes.object.isRequired,
+  activeStreamer: PropTypes.string.isRequired,
+  onSelectStreamer: PropTypes.func,
   width: PropTypes.number,
-  height: PropTypes.number
+  height: PropTypes.number,
 };
 
 export default StreamerCollection;

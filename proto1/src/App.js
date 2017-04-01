@@ -13,7 +13,16 @@ class App extends Component {
 
     this.state = {
       Kappa: 0,
-      PogChamp: 0
+      PogChamp: 0,
+      streamers: {
+        newbie: {
+          name: 'Gamerboy23'
+        },
+        AtheneLIVE: {
+          name: 'AtheneLIVE',
+        },
+      },
+      activeStreamer: 'newbie',
     };
 
     this.emoteCollected = this.emoteCollected.bind(this);
@@ -24,9 +33,14 @@ class App extends Component {
   }
 
   emoteCollected(emoteId) {
-
     this.setState((prevState) => ({
       [emoteId]: prevState[emoteId] + 1
+    }));
+  }
+
+  selectStreamer = (streamerId) => {
+    this.setState((state) => ({
+      activeStreamer: streamerId
     }));
   }
 
@@ -43,7 +57,10 @@ class App extends Component {
               width={100}
               height={200}
               {...this.state} />
-            <StreamerCollection />
+            <StreamerCollection
+              streamers={this.state.streamers}
+              activeStreamer={this.state.activeStreamer}
+              onSelectStreamer={this.selectStreamer} />
 
           </Sidebar>
 
@@ -52,7 +69,9 @@ class App extends Component {
             width={644}
             height={125}
             interval={1000 / this.FPS}
-            emoteCollected={this.emoteCollected} />
+            emoteCollected={this.emoteCollected}
+            activeStreamer={this.state.activeStreamer}
+          />
 
         </main>
         {/* END OF GAME */}

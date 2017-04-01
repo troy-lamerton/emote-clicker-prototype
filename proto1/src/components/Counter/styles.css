@@ -1,7 +1,7 @@
 .counter {
   text-align: right;
-  margin-top: -16px;
+  margin-top: 6px;
 
-  line-height: 14px;
-  font: normal 12px Arial;
+  line-height: 20px;
+  font: bold 18px Arial;
 }

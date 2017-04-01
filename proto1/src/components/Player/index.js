@@ -2,25 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import './styles.css';
 
 class Player extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      streamerId: props.streamerId || 'newbie',
-      enabled: props.enabled || !props.disabled,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.streamerId && this.props.streamerId !== nextProps.streamerId) {
-      this.setState({
-        streamerId: nextProps.streamerId
-      });
-    }
-  }
-
   get imageSrc() {
-    return `images/streamers/${this.state.streamerId}.png`;
+    return `images/streamers/${this.props.streamerId}.png`;
   }
 
   get bgImage() {
@@ -44,16 +27,16 @@ class Player extends Component {
       <div
         id="Player"
         style={playerStyle}
-      />
+        data-streamerId={streamerId} />
     );
   }
 }
 
 Player.propTypes = {
+  streamerId: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,
   radius: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
-  streamerId: PropTypes.oneOf(['newbie', 'AtheneLIVE']).isRequired,
 };
 
 export default Player;

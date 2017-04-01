@@ -1,5 +1,6 @@
 .enemy-container {
   position: absolute;
+  bottom: 0;
   width: 30px;
   height: 30px;
 
@@ -9,10 +10,18 @@
   overflow: hidden;
   opacity: 1;
 }
+
 .spinning {
-  animation: emote-spin infinite 0.5s linear;
+  /*animation-iteration-count: 1;*/
+  animation: emote-spin 1 0.4s linear;
 }
+
 @keyframes emote-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
 }

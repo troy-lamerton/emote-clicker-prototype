@@ -35,3 +35,7 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# weird folders etc
+/proto1/.com.*
+/proto1/firefox_root

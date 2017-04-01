@@ -1,0 +1,10 @@
+#StreamerCollection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.streamer.active {
+  border: 2px solid black;
+  outline: 1px solid white;
+}
