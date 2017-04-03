@@ -21,6 +21,9 @@ class App extends Component {
         AtheneLIVE: {
           name: 'AtheneLIVE',
         },
+        random: {
+          name: '?'
+        }
       },
       activeStreamer: 'newbie',
     };
@@ -57,6 +60,7 @@ class App extends Component {
               width={100}
               height={200}
               {...this.state} />
+
             <StreamerCollection
               streamers={this.state.streamers}
               activeStreamer={this.state.activeStreamer}

@@ -4,17 +4,14 @@ import ImageSquare from '../ImageSquare';
 
 import './styles.css';
 
-const Enemy = (props) => {
-
-  return (
-    <div className="enemy">
-      <ImageSquare
-        imageFolder="emotes"
-        imageName={props.emoteId}
-      />
-    </div>
-  );
-}
+const Enemy = (props) => (
+  <div className="enemy">
+    <ImageSquare
+      imageFolder="emotes"
+      imageName={props.emoteId}
+    />
+  </div>
+);
 
 Enemy.propTypes = {
   emoteId: PropTypes.string.isRequired,

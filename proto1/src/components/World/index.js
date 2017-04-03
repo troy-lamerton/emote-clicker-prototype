@@ -32,7 +32,7 @@ class World extends Component {
   }
 
   get initialEnemies() {
-    const NUM_ENEMIES = 3;
+    const NUM_ENEMIES = 6;
   
       // {alive: true, x: 250, radius: 15, emoteId: 'Kappa'},
       // {alive: true, x: 500, radius: 15, emoteId: 'PogChamp'},
