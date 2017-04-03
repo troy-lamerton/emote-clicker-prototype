@@ -1,0 +1,12 @@
+#Player {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  border: 8px solid #ac0f00;
+
+  background: #0fac00;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center; 
+}

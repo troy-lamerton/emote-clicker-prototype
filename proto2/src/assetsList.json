@@ -1,0 +1,21 @@
+/*
+ * Streamers
+ *
+ <id>: {
+  
+ }
+ */
+{
+  "streamers": {
+    "newbie": {
+
+    }
+  },
+  "emotes": {
+    "Kappa": {
+      "filename": "Kappa.png",
+      "W": 30,
+      "H": 30
+    }
+  }
+}

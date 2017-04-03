@@ -1,0 +1,7 @@
+.counter {
+  text-align: right;
+  margin-top: 6px;
+
+  line-height: 20px;
+  font: bold 18px Arial;
+}

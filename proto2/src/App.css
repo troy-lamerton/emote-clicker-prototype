@@ -1,0 +1,29 @@
+.App {
+  text-align: center;
+  color: lightblue;
+  font: bold 16px sans-serif;
+}
+#Sidebar-left {
+  
+}
+
+.game {
+  display: flex;
+}
+
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.game-footer {
+  font-size: large;
+  background: #fff;
+}
+
+#leftControls {
+  margin-right: auto;
+}

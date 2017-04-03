@@ -1,0 +1,27 @@
+.enemy-container {
+  position: absolute;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+
+  border: 3px solid cyan;
+  background: #eee;
+
+  overflow: hidden;
+  opacity: 1;
+}
+
+.spinning {
+  /*animation-iteration-count: 1;*/
+  animation: emote-spin 1 0.4s linear;
+}
+
+@keyframes emote-spin {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+}
